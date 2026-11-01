@@ -1,21 +1,22 @@
 import json
 from pathlib import Path
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from email.utils import format_datetime
 from .news_fetcher import collect
-from .ai import groq, openrouter
+from .ai import openrouter_news, openrouter
 from .editorial_moderator import moderate_stories, moderate_script
 from .audio import make_audio
 from .publish import upload, write_feed
 
 PLANETS={0:"Moon",1:"Mars",2:"Mercury",3:"Jupiter",4:"Venus"}
 def main():
-    now=datetime.now().astimezone()
+    now=datetime.now(ZoneInfo("Asia/Kolkata"))
     if now.weekday()>4: print("Weekend; skipping."); return
     date=now.strftime("%Y-%m-%d"); planet=PLANETS[now.weekday()]
     raw=collect()
     if not raw: raise RuntimeError("No recent RSS stories; fail closed.")
-    stories=moderate_stories(groq(raw))
+    stories=moderate_stories(openrouter_news(raw))
     if not stories: raise RuntimeError("No stories passed validation.")
     script=moderate_script(openrouter(stories,planet))
     output=Path("work")/f"daily-orbit-{date}.mp3"
