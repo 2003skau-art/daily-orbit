@@ -6,3 +6,5 @@ edge-tts
 pydub
 PyYAML
 audioop-lts; python_version >= "3.13"
+google-api-python-client
+google-auth

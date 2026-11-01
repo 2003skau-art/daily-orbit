@@ -38,6 +38,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           PUBLIC_FEED_BASE_URL: ${{ vars.PUBLIC_FEED_BASE_URL }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          AUDIO_DRIVE_FOLDER_ID: ${{ vars.AUDIO_DRIVE_FOLDER_ID }}
         run: python -m src.main
 
       - name: Commit RSS feed

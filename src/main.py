@@ -9,11 +9,13 @@ from .editorial_moderator import moderate_stories, moderate_script
 from .audio import make_audio
 from .music_rotation import record_planet_track
 from .publish import upload, write_feed
+from .drive_assets import download_audio_assets
 
 PLANETS={0:"Moon",1:"Mars",2:"Mercury",3:"Jupiter",4:"Venus"}
 def main():
     now=datetime.now(ZoneInfo("Asia/Kolkata"))
     if now.weekday()>4: print("Weekend; skipping."); return
+    download_audio_assets()
     date=now.strftime("%Y-%m-%d"); planet=PLANETS[now.weekday()]
     raw=collect()
     if not raw: raise RuntimeError("No recent RSS stories; fail closed.")
