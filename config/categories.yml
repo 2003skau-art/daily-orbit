@@ -1,0 +1,26 @@
+categories:
+  - id: bengaluru
+    title: Bengaluru
+    feeds:
+      - https://news.google.com/rss/search?q=Bengaluru+OR+Bangalore+when:1d&hl=en-IN&gl=IN&ceid=IN:en
+      - https://www.thehindu.com/news/cities/bangalore/feeder/default.rss
+  - id: india
+    title: India
+    feeds:
+      - https://news.google.com/rss/search?q=India+government+OR+politics+when:1d&hl=en-IN&gl=IN&ceid=IN:en
+      - https://www.thehindu.com/news/national/feeder/default.rss
+  - id: global_politics
+    title: Global politics
+    feeds:
+      - https://news.google.com/rss/search?q=global+politics+OR+geopolitics+when:1d&hl=en&gl=US&ceid=US:en
+      - https://feeds.bbci.co.uk/news/world/rss.xml
+  - id: business_technology
+    title: Business & technology
+    feeds:
+      - https://news.google.com/rss/search?q=business+technology+AI+when:1d&hl=en-IN&gl=IN&ceid=IN:en
+      - https://techcrunch.com/feed/
+  - id: science_world
+    title: Science & world
+    feeds:
+      - https://news.google.com/rss/search?q=science+space+climate+when:1d&hl=en&gl=US&ceid=US:en
+      - https://www.sciencedaily.com/rss/top/science.xml

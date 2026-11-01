@@ -1,0 +1,14 @@
+language: English
+voice: en-IN-NeerjaNeural
+max_stories_per_category: 4
+target_story_seconds: 50
+hard_story_limit_seconds: 90
+freshness_hours: 36
+rules:
+  - Never invent facts, quotations, statistics, dates, sources or URLs.
+  - Distinguish confirmed facts, allegations, analysis and forecasts.
+  - Prefer primary sources and independent corroboration.
+  - Do not repeat the same event across categories.
+  - Include fewer than three stories if fewer than three are genuinely important.
+  - Use neutral language and avoid sensationalism.
+  - Include source attribution for every story.
