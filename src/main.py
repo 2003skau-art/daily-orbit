@@ -7,6 +7,7 @@ from .news_fetcher import collect
 from .ai import openrouter_news, openrouter
 from .editorial_moderator import moderate_stories, moderate_script
 from .audio import make_audio
+from .music_rotation import record_planet_track
 from .publish import upload, write_feed
 
 PLANETS={0:"Moon",1:"Mars",2:"Mercury",3:"Jupiter",4:"Venus"}
@@ -20,8 +21,9 @@ def main():
     if not stories: raise RuntimeError("No stories passed validation.")
     script=moderate_script(openrouter(stories,planet))
     output=Path("work")/f"daily-orbit-{date}.mp3"
-    minutes=make_audio(script,planet,date,output)
+    minutes, selected_song = make_audio(script,planet,date,output)
     audio_url=upload(output,f"episodes/{date}.mp3")
+    record_planet_track(planet, selected_song)
     episode={"title":f"Daily Orbit – {date} – {planet}","audio_url":audio_url,
       "length":str(output.stat().st_size),"guid":f"daily-orbit-{date}",
       "pub_date":format_datetime(datetime.now(timezone.utc)),
