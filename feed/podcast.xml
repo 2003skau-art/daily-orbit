@@ -1,16 +1,2 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0"
- xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
-  <channel>
-    <title>Daily Orbit – Your Commute Radio</title>
-    <link>https://2003skau-art.github.io/daily-orbit/</link>
-    <description>
-      Your weekday commute companion: devotion,
-      planetary reflections and sourced news.
-    </description>
-    <language>en-IN</language>
-    <itunes:author>Daily Orbit</itunes:author>
-    <itunes:explicit>false</itunes:explicit>
-  </channel>
-</rss>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"><channel><title>Daily Orbit – Your Commute Radio</title><link>https://2003skau-art.github.io/daily-orbit</link><description>Weekday devotion, planetary reflection and sourced news.</description><language>en-IN</language><itunes:author>Daily Orbit</itunes:author><itunes:explicit>false</itunes:explicit></channel></rss>
