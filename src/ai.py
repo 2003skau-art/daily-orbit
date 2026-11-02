@@ -57,12 +57,29 @@ def call_openrouter(messages, max_tokens=4500):
 
     response.raise_for_status()
 
-    content = response.json()["choices"][0]["message"]["content"]
+        data = response.json()
+
+    if "error" in data:
+        raise RuntimeError(
+            f"OpenRouter API error: {json.dumps(data['error'])[:1000]}"
+        )
+
+    choices = data.get("choices") or []
+
+    if not choices:
+        raise RuntimeError(
+            f"OpenRouter returned no choices: {json.dumps(data)[:1500]}"
+        )
+
+    message = choices[0].get("message") or {}
+    content = message.get("content")
 
     if not content:
-        raise RuntimeError("OpenRouter returned an empty response.")
-
-    return json.loads(extract_json(content))
+        raise RuntimeError(
+            "OpenRouter returned empty content. "
+            f"Finish reason: {choices[0].get('finish_reason')}. "
+            f"Response: {json.dumps(data)[:1500]}"
+        )
 
 
 def openrouter_news(items):
