@@ -17,7 +17,10 @@ def extract_json(text):
     if text.startswith("{") or text.startswith("["):
         return text
 
-    starts = [p for p in (text.find("{"), text.find("[")) if p >= 0]
+    starts = [
+        p for p in (text.find("{"), text.find("["))
+        if p >= 0
+    ]
 
     if not starts:
         raise ValueError("The AI did not return JSON.")
@@ -53,11 +56,18 @@ def call_openrouter(messages, max_tokens=4500):
     )
 
     if response.status_code == 429:
-        raise RuntimeError("OpenRouter free-model limit reached. Try again later.")
+        raise RuntimeError(
+            "OpenRouter rate limit reached. Try again later."
+        )
 
     response.raise_for_status()
 
+    try:
         data = response.json()
+    except ValueError:
+        raise RuntimeError(
+            f"OpenRouter returned invalid JSON: {response.text[:1000]}"
+        )
 
     if "error" in data:
         raise RuntimeError(
@@ -71,15 +81,24 @@ def call_openrouter(messages, max_tokens=4500):
             f"OpenRouter returned no choices: {json.dumps(data)[:1500]}"
         )
 
-    message = choices[0].get("message") or {}
+    choice = choices[0]
+    message = choice.get("message") or {}
     content = message.get("content")
 
-    if not content:
+    if not content or not isinstance(content, str):
         raise RuntimeError(
             "OpenRouter returned empty content. "
-            f"Finish reason: {choices[0].get('finish_reason')}. "
+            f"Finish reason: {choice.get('finish_reason')}. "
             f"Response: {json.dumps(data)[:1500]}"
         )
+
+    try:
+        return json.loads(extract_json(content))
+    except (ValueError, json.JSONDecodeError) as exc:
+        raise RuntimeError(
+            f"Could not parse OpenRouter JSON: {exc}. "
+            f"Content received: {content[:1500]}"
+        ) from exc
 
 
 def openrouter_news(items):
